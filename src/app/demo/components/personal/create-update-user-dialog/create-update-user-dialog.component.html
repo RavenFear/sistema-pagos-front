@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="saveAlumno()">
+    <div class="card">
+        <span class="text-900 text-xl font-bold mb-4 block">Gestionar Alumno</span>
+        <div class="grid">
+            <div class="col-12 lg:col-2">
+                <div class="text-900 font-medium text-xl mb-3">Perfil</div>
+                <p class="m-0 p-0 text-600 line-height-3 mr-3">
+                    Completa la información del alumno en el formulario para registrar o actualizar sus datos.
+                </p>
+            </div>
+            <div class="col-12 lg:col-10">
+                <div class="grid formgrid p-fluid">
+
+                    <!-- Nombre -->
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="nombre" class="font-medium text-900">Nombre</label>
+                        <input id="nombre" type="text" pInputText formControlName="nombre"/>
+                        <small class="p-error" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">Nombre
+                            requerido</small>
+                    </div>
+
+                    <!-- Apellido -->
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="apellido" class="font-medium text-900">Apellido</label>
+                        <input id="apellido" type="text" pInputText formControlName="apellido"/>
+                        <small class="p-error" *ngIf="form.get('apellido')?.invalid && form.get('apellido')?.touched">Apellido
+                            requerido</small>
+                    </div>
+
+                    <!-- Código -->
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="codigo" class="font-medium text-900">Código</label>
+                        <input id="codigo" type="text" pInputText formControlName="codigo"/>
+                        <small class="p-error" *ngIf="form.get('codigo')?.invalid && form.get('codigo')?.touched">Código
+                            inválido</small>
+                    </div>
+
+                    <!-- Programa -->
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label class="font-medium text-900">Programa</label>
+                        <input type="text" pInputText formControlName="programaId"/>
+                        <small class="p-error"
+                               *ngIf="form.get('programaId')?.invalid && form.get('programaId')?.touched">Programa
+                            requerido</small>
+                    </div>
+
+                    <!-- Foto -->
+                    <div class="field mb-4 col-12">
+                        <label class="font-medium text-900">Foto</label>
+                        <p-fileUpload
+                            mode="basic"
+                            name="foto"
+                            accept="image/*"
+                            customUpload="true"
+                            [auto]="true"
+                            styleClass="p-button-outlined p-button-plain"
+                            chooseLabel="Subir Imagen">
+                        </p-fileUpload>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-content-end mt-4">
+            <button type="submit" pButton label="Guardar" [disabled]="!form.valid" icon="pi pi-save"
+                    class="p-button-primary"></button>
+        </div>
+    </div>
+</form>

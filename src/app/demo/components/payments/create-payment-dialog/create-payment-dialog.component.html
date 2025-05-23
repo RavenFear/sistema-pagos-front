@@ -1,0 +1,89 @@
+<form [formGroup]="form" (ngSubmit)="savePago()">
+    <div class="card">
+        <span class="text-900 text-xl font-bold mb-4 block">Registrar Pago</span>
+
+        <div class="grid formgrid p-fluid">
+
+            <!-- Fecha -->
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="date" class="font-medium text-900">Fecha</label>
+                <p-calendar id="date" formControlName="date" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
+                <small class="p-error" *ngIf="form.get('date')?.invalid && form.get('date')?.touched">Fecha
+                    requerida</small>
+            </div>
+
+            <!-- Archivo (File) -->
+            <div class="field mb-4 col-12 md:col-6">
+                <label class="font-medium text-900">Archivo</label>
+                <p-fileUpload #FileUpload mode="basic"
+                              chooseLabel="Seleccionar..."
+                              chooseIcon="pi pi-upload" name="demo[]"
+                              customUpload="true"
+                              (onSelect)="onUpload($event)"/>
+
+            </div>
+
+            <!-- Monto -->
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="monto" class="font-medium text-900">Monto</label>
+                <p-inputNumber id="monto" formControlName="monto" inputId="currency-us" mode="currency" currency="USD"
+                               locale="en-US"/>
+
+                <small class="p-error" *ngIf="form.get('monto')?.invalid && form.get('monto')?.touched">Monto
+                    requerido</small>
+            </div>
+
+
+            <!-- Medio de pago -->
+            <div class="field mb-4 col-12 md:col-6">
+                <label class="font-medium text-900">Medio de Pago</label>
+                <p-dropdown
+                    [options]="metodosPago"
+                    placeholder="Seleccione medio de pago"
+                    formControlName="type">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="form.controls.type.value">
+                            <img
+                                src="{{getTipoDePago().url}}"
+                                style="width: 18px" alt=""/>
+                            <div>{{ getTipoDePago().label }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-item pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <img
+                                src="{{item.url}}"
+                                style="width: 18px" alt=""/>
+                            <div>{{ item.label }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <small class="p-error" *ngIf="form.get('type')?.invalid && form.get('type')?.touched">Medio de pago
+                    requerido</small>
+            </div>
+
+            <!-- Estudiante ID (oculto o seleccionable según contexto) -->
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="estudiante_id" class="font-medium text-900">Estudiante</label>
+                <p-dropdown
+                    id="estudiante_id"
+                    [options]="estudiantes"
+                    placeholder="Seleccione un estudiante"
+                    formControlName="codigoEstudiante"
+                    optionLabel="label"
+                    optionValue="codigo">
+                </p-dropdown>
+                <small class="p-error"
+                       *ngIf="form.get('codigoEstudiante')?.invalid && form.get('codigoEstudiante')?.touched">Estudiante
+                    requerido</small>
+            </div>
+
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="flex justify-content-end mt-4">
+            <button type="submit" pButton label="Guardar Pago" [disabled]="!form.valid" icon="pi pi-save"
+                    class="p-button-primary"></button>
+        </div>
+    </div>
+</form>

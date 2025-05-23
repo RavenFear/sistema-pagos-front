@@ -1,0 +1,148 @@
+<div class="col-12">
+    <div class="card">
+        <h5> Listado de pagos</h5>
+        <p-table #dt [value]="pagos" dataKey="id" [rows]="50" [loading]="loading"
+                 [totalRecords]="totalRegistros"
+                 [lazy]="true" (onLazyLoad)="getPagosLazy($event)"
+                 [rowHover]="true"
+                 [rowsPerPageOptions]="[50,100]"
+                 styleClass="p-datatable-gridlines" [paginator]="true"
+                 responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 8rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Id
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Fecha
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Valor
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Estado
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Tipo
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Estudiante
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="caption">
+                @if (estudianteFlag) {
+                    <p-dropdown
+                        [options]="estudiantes"
+                        (onChange)="getPagosLazy(null,'estudiantes/' + value + '/pagos')"
+                        placeholder="Seleccione un estudiante"
+                        [(ngModel)]="value"
+                        optionLabel="label"
+                        optionValue="codigo">
+                    </p-dropdown>
+                }
+                @if (tipoFlag) {
+                    <p-dropdown
+                        [options]="tiposEnum"
+                        (onChange)="getPagosLazy(null,'pagos/porTipo/' + value)"
+                        placeholder="Seleccione un tipo"
+                        [(ngModel)]="value"
+                        optionLabel="label"
+                        optionValue="value">
+                    </p-dropdown>
+                }
+                @if (estadoFlag) {
+                    <p-dropdown
+                        [options]="estadosEnum"
+                        (onChange)="getPagosLazy(null,'pagos/pagosPorStatus/' + value)"
+                        placeholder="Seleccione un estado"
+                        [(ngModel)]="value"
+                        optionLabel="label"
+                        optionValue="value">
+                    </p-dropdown>
+                }
+            </ng-template>
+            <ng-template pTemplate="body" let-pago>
+                <tr>
+                    <td>
+                        {{ pago.id }}
+                    </td>
+                    <td>
+                        {{ pago.fecha }}
+                    </td>
+                    <td>
+                        {{ pago.monto | currency:'COP':'$':'1.2-2' }}
+                    </td>
+                    <td>
+                        @switch (pago.status) {
+                            @case ('VALIDADO') {
+                                <p-tag value="{{ pago.status }}" severity="success"></p-tag>
+                            }
+                            @case ('RECHAZADO') {
+                                <p-tag value="{{ pago.status }}" severity="danger"></p-tag>
+                            }
+                            @default {
+                                <p-tag value="{{ pago.status }}" severity="warning"></p-tag>
+                            }
+                        }
+                    </td>
+                    <td>
+                        {{ pago.type }}
+                    </td>
+                    <td>
+                        {{ pago.estudiante.nombre + ' ' + pago.estudiante.apellido }}
+                    </td>
+                    <td>
+                        <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+                            <p-button
+                                icon="pi pi-file-pdf" severity="danger"
+                                [pTooltip]="'Descargar comprobante'"
+                                (click)="exportPdf(pago.id)"/>
+                            @if (!['VALIDADO', 'RECHAZADO'].includes(pago.status)) {
+                                <p-button
+                                    icon="pi pi-check" severity="success"
+                                    [pTooltip]="'Validar pago'"
+                                    (click)="validarPago(pago.id)"/>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                <div style="padding-top: 7px;margin-left: 15px;">Cantidad de
+                    registros: {{ totalRegistros }}
+                </div>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <button style="margin-right: 15px;" class="p-button-raised p-button-success"
+                        type="button" pButton icon="pi pi-refresh" (click)="dt.reset()">
+                </button>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">Sin registros.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Cargando pagos. Un momento por favor.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

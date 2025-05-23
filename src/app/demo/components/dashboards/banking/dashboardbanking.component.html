@@ -1,0 +1,162 @@
+<div class="grid">
+    <div class="col-12 md:col-6 xl:col-3">
+        <div
+            class="py-4 px-2 border-round-md surface-card flex flex-wrap h-full align-items-center justify-content-between gap-3 border-1 surface-border">
+            <div class="flex gap-3 align-items-center">
+                <div class="p-2 flex justify-content-center align-items-center border-circle bg-primary text-0 mr-2"
+                     [ngClass]="{'bg-primary-900 text-900': layoutService.config().colorScheme === 'dark'}">
+                    <i class="pi pi-dollar text-2xl"></i>
+                </div>
+
+                <div>
+                    <div class="text-xl font-medium text-left" style="cursor: pointer"
+                         (click)="onClickPagosPorEstado()">Pagos por estado
+                    </div>
+                    <div class="text-base text-color-secondary">Listado de pagos filtrado por estado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-6 xl:col-3">
+        <div
+            class="py-4 px-2 border-round-md surface-card flex flex-wrap h-full align-items-center justify-content-between gap-3 border-1 surface-border">
+            <div class="flex gap-3 align-items-center">
+                <div class="p-2 flex justify-content-center align-items-center border-circle bg-primary text-0 mr-2"
+                     [ngClass]="{'bg-primary-900': layoutService.config().colorScheme === 'dark'}">
+                    <i class="pi pi-euro text-2xl"></i>
+                </div>
+                <div>
+                    <div class="text-xl font-medium text-left" style="cursor: pointer" (click)="onClickPagosPorTipo()">
+                        Pagos por tipo
+                    </div>
+                    <div class="text-base text-color-secondary">Listado de pagos por tipo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-12 md:col-6 xl:col-3">
+        <div
+            class="py-4 px-2 border-round-md surface-card flex flex-wrap h-full align-items-center justify-content-between gap-3 border-1 surface-border">
+            <div class="flex gap-3 align-items-center">
+                <div class="p-2 flex justify-content-center align-items-center border-circle bg-primary text-0 mr-2"
+                     [ngClass]="{'bg-primary-900': layoutService.config().colorScheme === 'dark'}">
+                    <i class="pi pi-wallet text-2xl"></i>
+                </div>
+
+                <div>
+                    <div class="text-xl font-medium text-left" style="cursor: pointer"
+                         (click)="onClickPagosPorEstudiante()">Pagos estudiante
+                    </div>
+                    <div class="text-base text-color-secondary">Listado de pagos por estudiante</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-6 xl:col-3">
+        <div
+            class="py-4 px-2 border-round-md surface-card flex flex-wrap h-full align-items-center justify-content-between gap-3 border-1 surface-border">
+            <div class="flex gap-3 align-items-center">
+                <div class="p-2 flex justify-content-center align-items-center border-circle bg-primary text-0 mr-2"
+                     [ngClass]="{'bg-primary-900': layoutService.config().colorScheme === 'dark'}">
+                    <i class="pi pi-user text-2xl"></i>
+                </div>
+                <div>
+                    <div class="text-xl font-medium text-left" style="cursor: pointer"
+                         (click)="onClickListadoEstudiantesPrograma()">Estudiantes por programa
+                    </div>
+                    <div class="text-base text-color-secondary">Listado de estudiantes por programa</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-12">
+        <div class="card h-full">
+            <h5>Cuentas</h5>
+            <div class="flex justify-content-between border-bottom-1 surface-border p-3">
+                <span class="font-semibold text-color-secondary text-xl">Total</span>
+                <span class="text-green-500 text-2xl font-bold">$624,504.00</span>
+            </div>
+
+            <div class="p-3">
+                <div class="flex align-items-center justify-content-between py-2">
+                    <div class="flex gap-3 text-lg align-items-center">
+                        <i class="pi pi-money-bill text-color-secondary"></i>
+                        <span class="text-color-secondary">Cuentas de banco</span>
+                    </div>
+                    <div class="flex align-items-center gap-2">
+                        <span class="font-semibold text-base">$320,521.25</span>
+                        <a href="#" class="text-color-secondary">
+                            <i class="pi pi-angle-double-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-between py-2">
+                    <div class="flex gap-3 text-lg align-items-center">
+                        <i class="pi pi-briefcase text-color-secondary"></i>
+                        <span class="text-color-secondary">Ahorros</span>
+                    </div>
+                    <div class="flex align-items-center gap-2">
+                        <span class="font-semibold text-base">$94,305.00</span>
+                        <a href="#" class="text-color-secondary">
+                            <i class="pi pi-angle-double-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex align-items-center justify-content-between py-2">
+                    <div class="flex gap-3 text-lg align-items-center">
+                        <i class="pi pi-globe text-color-secondary"></i>
+                        <span class="text-color-secondary">Créditos</span>
+                    </div>
+                    <div class="flex align-items-center gap-2">
+                        <span class="font-semibold text-base">$5,000.00</span>
+                        <a href="#" class="text-color-secondary">
+                            <i class="pi pi-angle-double-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-between py-2">
+                    <div class="flex gap-3 text-lg align-items-center">
+                        <i class="pi pi-dollar text-color-secondary"></i>
+                        <span class="text-color-secondary">Ganancia</span>
+                    </div>
+                    <div class="flex align-items-center gap-2">
+                        <span class="font-semibold text-base">$21.25</span>
+                        <a href="#" class="text-color-secondary">
+                            <i class="pi pi-angle-double-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-12">
+        <app-users-list>
+
+        </app-users-list>
+    </div>
+    <div class="col-12 lg:col-12">
+        <app-payments-list>
+
+        </app-payments-list>
+    </div>
+
+
+</div>
+<p-dialog [(visible)]="display" [modal]="true" [focusOnShow]="false" [maximizable]="true"
+          (onHide)="onHideDialog()">
+    <app-payments-list #pl>
+
+    </app-payments-list>
+</p-dialog>
+<p-dialog [(visible)]="displayUser" [modal]="true" [focusOnShow]="false" [maximizable]="true"
+          (onHide)="onHideDialogUser()">
+    <app-users-list #ul>
+
+    </app-users-list>
+</p-dialog>
