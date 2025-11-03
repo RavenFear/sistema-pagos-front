@@ -6,7 +6,7 @@ dist
 .DS_Store
 .idea
 sassdoc
-
+package-lock.json
 
 
 # compiled output
