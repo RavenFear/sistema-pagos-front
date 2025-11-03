@@ -1,0 +1,47 @@
+version: 0.2
+
+env:
+    variables:
+        NODE_VERSION: "18"
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 18
+        commands:
+            - echo Installing Node.js $NODE_VERSION
+            - node --version
+            - npm --version
+
+    pre_build:
+        commands:
+            - echo Installing dependencies on `date`
+            - npm ci --prefer-offline --no-audit
+            - echo Dependencies installed successfully
+
+    build:
+        commands:
+            - echo Build started on `date`
+            - echo Building NextEduPay+ (booster-ng) Angular application
+            - npm run build -- --configuration=production
+            - echo Build completed on `date`
+            - echo Verifying build output...
+            - ls -la dist/
+            - ls -la dist/booster-ng/
+
+    post_build:
+        commands:
+            - echo Post-build phase on `date`
+            - echo Build artifacts ready for deployment
+            - echo Total files to deploy:
+            - find dist/booster-ng -type f | wc -l
+
+artifacts:
+    files:
+        - '**/*'
+    base-directory: 'dist/booster-ng'
+    discard-paths: no
+
+cache:
+    paths:
+        - 'node_modules/**/*'
